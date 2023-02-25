@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import Layout from '../components/Layout/Layout'
 import { BsFillEyeFill } from 'react-icons/bs'
 import { toast } from 'react-toastify';
+import OAuth from '../components/OAuth'
 
 const Signin = () => {
 
@@ -58,11 +59,13 @@ const Signin = () => {
                         <span>
                             Show Password <BsFillEyeFill className='ms-2 text-danger' style={{ cursor: 'pointer' }} onClick={() => { setShowPassword((prevState) => !prevState) }} />
                         </span>
+                        <span><Link to='/forgot-password'>forgot Password</Link></span>
                     </div>
 
                     <button type="submit" className="btn btn-primary">Sign In</button>
+                    <OAuth />
                     <div className='mt-2'>
-                        <h6>Login with Google</h6>
+
                         <span>New User </span><Link to='/signup'>Sign Up</Link>
                     </div>
                 </form>
