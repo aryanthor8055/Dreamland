@@ -7,7 +7,7 @@ import { collection, getDocs, query, where, orderBy, limit, startAfter } from 'f
 import Spinner from '../components/Spinner'
 import ListingItem from '../components/ListingItem'
 
-const Offers = () => {
+const Category = () => {
     const [listing, setListing] = useState(null)
     const [loading, setLoading] = useState(true)
     const params = useParams()
@@ -21,7 +21,7 @@ const Offers = () => {
                 //reference
                 const listingsRef = collection(db, 'listings')
                 //query
-                const q = query(listingsRef, where('offer', '==', true), orderBy('timestamp', 'desc'), limit(10))
+                const q = query(listingsRef, where('type', '==', params.categoryName), orderBy('timestamp', 'desc'), limit(10))
 
                 //execute query
 
@@ -42,12 +42,11 @@ const Offers = () => {
             }
         }
         fetchListing()
-    }, [])
+    }, [params.categoryName])
     return (
         <Layout>
             <div className='mt-3 container-fluid'>
-                <h1>Best Offers</h1>
-
+                <h1>{params.categoryName === 'rent' ? 'Places for Rent' : 'Places for Sell'}</h1>
                 {
                     loading ? <Spinner /> : listing && listing.length > 0 ? (
                         <>
@@ -59,7 +58,7 @@ const Offers = () => {
                                 }
                             </div>
                         </>
-                    ) : (<p>There Are no Current Offer</p>)
+                    ) : (<p>No Listings For {params.categoryName}</p>)
                 }
             </div>
 
@@ -67,4 +66,4 @@ const Offers = () => {
     )
 }
 
-export default Offers
+export default Category

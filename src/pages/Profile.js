@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import Layout from '../components/Layout/Layout'
 import { getAuth, updateProfile } from 'firebase/auth'
 import { toast } from 'react-toastify';
 import { db } from '../firebase.config'
-import { FaEdit } from 'react-icons/fa'
+import { FaEdit, FaArrowAltCircleRight } from 'react-icons/fa'
 import { IoMdCheckmarkCircle } from 'react-icons/io'
 import { doc, updateDoc } from 'firebase/firestore'
 
@@ -85,11 +85,13 @@ const Profile = () => {
 
 
                         </form>
-
                     </div>
                 </div>
-            </div>
 
+            </div>
+            <div className='container mt-4 w-50 d-flex justify-content-between'>
+                <Link to="/create-listing"><FaArrowAltCircleRight color='primary' />Sell or Rent Your Home</Link>
+            </div>
         </Layout>
     )
 }

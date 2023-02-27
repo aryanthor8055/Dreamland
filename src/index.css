@@ -1,0 +1,44 @@
+/* Image Container for Caategory */
+
+.Imagecontainer {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.Imagecontainer img {
+    width: 100%;
+    height: auto;
+}
+
+.Imagecontainer .btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.Imagecontainer .btn:hover {
+    background-color: black;
+}
+
+
+
+
+/* Image Container for Caategory */
+
+.category-link a {
+    text-decoration: none !important;
+    color: black;
+    line-height: normal;
+
+}
