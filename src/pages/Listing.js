@@ -5,17 +5,17 @@ import { db } from "../firebase.config";
 import { getAuth } from "firebase/auth";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
-import SwipeCo, { EffectCoverflow, Navigation, Pagination } from 'swiper'
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+
+
 import 'swiper/css';
-
-
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 
 const Listing = () => {
-    //config
-    const [EffectCoverflow, Pagination] = useSwiper();
-
     const [listing, setListing] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -38,13 +38,17 @@ const Listing = () => {
     if (loading) {
         return <Spinner />;
     }
+
     return (
         <Layout>
             <div className="container d-flex align-items-center justify-content-center mt-4">
                 <div className="card" style={{ width: "600px" }}>
                     <div className="card-header">
-                        {listing.imgUrls === undefined ? (<Spinner />) : (
+                        {listing.imgUrls === undefined ? (
+                            <Spinner />
+                        ) : (
                             <Swiper
+                                modules={[Navigation, Pagination, Scrollbar, A11y]}
                                 effect={"coverflow"}
                                 grabCursor={true}
                                 centeredSlides={true}
@@ -54,16 +58,27 @@ const Listing = () => {
                                     stretch: 0,
                                     depth: 100,
                                     modifier: 1,
-                                    slideShadows: true
+                                    slideShadows: true,
                                 }}
-                                pagination={true}
+
+                                pagination={{ clickable: true }}
+                                scrollbar={{ draggable: true }}
+
                                 className="mySwipe"
                             >
-                                {listing.imgUrls.map((url, index) => {
+                                {listing.imgUrls.map((url, index) => (
                                     <SwiperSlide key={index}>
-                                        <img src={listing.imgUrls[index]} height={400} width={800} alt={listing.name} />
+
+                                        <img
+                                            src={listing.imgUrls[index]}
+                                            height={400}
+                                            width={800}
+                                            alt={listing.name}
+
+                                        />
+
                                     </SwiperSlide>
-                                })}
+                                ))}
                             </Swiper>
                         )}
                     </div>
