@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import Spinner from "../components/Spinner";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { ImLocation2 } from "react-icons/im";
+import '../styles/Slider.css'
 
 
 import 'swiper/css';
@@ -38,7 +40,6 @@ const Slider = () => {
         };
 
         fetchListing()
-        console.log(listings === null ? "loading" : listings);
 
     }, [])
 
@@ -47,7 +48,7 @@ const Slider = () => {
     }
     return (
         <>
-            <div className='container-fluid'>
+            <div style={{ width: "100%" }}>
                 {listings === null ? (
                     <Spinner />
                 ) : (
@@ -74,11 +75,6 @@ const Slider = () => {
                         {listings.map(({ data, id }) => (
                             <SwiperSlide key={id} onClick={() => { navigate(`/category/${data.type}/${id}`) }}>
 
-                                <h6 className='bg-info text-light p-2 m-0'>
-                                    <img alt='user pic' src={userPic} height={35} width={35} />
-                                    <span className='ms-2'>{data.name}</span>
-                                </h6>
-
                                 <img
                                     src={data.imgUrls[0]}
                                     height={400}
@@ -86,6 +82,15 @@ const Slider = () => {
                                     alt={data.name}
 
                                 />
+                                <h4 className='bg-info text-light p-2 m-0'>
+                                    <ImLocation2 size={20} className="ms-2" /> Recently Added :{" "}
+                                    <br />
+                                    <span className='ms-4 mt-2'>{data.name}</span>
+                                    <span className="ms-2">
+                                        | Price ( $ {data.regularPrice} )
+                                    </span>
+                                </h4>
+
 
                             </SwiperSlide>
                         ))}

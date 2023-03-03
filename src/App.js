@@ -12,6 +12,7 @@ import Category from "./pages/Category";
 import CreateListing from "./pages/CreateListing";
 import Listing from "./pages/Listing";
 import Contact from "./pages/Contact";
+import EditListing from "./pages/EditListing";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/offers" element={<Offers />} />
         <Route path="/category/:categoryName" element={<Category />} />
+        <Route path="/editlisting/:listingId" element={<EditListing />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/contact/:landlordId" element={<Contact />} />

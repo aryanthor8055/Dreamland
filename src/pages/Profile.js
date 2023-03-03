@@ -17,6 +17,7 @@ import {
     deleteDoc,
 } from "firebase/firestore";
 import ListingItem from "../components/ListingItem";
+import '../styles/Profile.css'
 
 const Profile = () => {
     const auth = getAuth();
@@ -34,7 +35,7 @@ const Profile = () => {
                 orderBy("timestamp", "desc")
             );
             const querySnap = await getDocs(q);
-            console.log(querySnap);
+
             let listings = [];
             querySnap.forEach((doc) => {
                 return listings.push({
@@ -42,7 +43,7 @@ const Profile = () => {
                     data: doc.data(),
                 });
             });
-            console.log(listings);
+
             setListings(listings);
             setLoading(false);
         };
@@ -80,7 +81,7 @@ const Profile = () => {
                 toast.success("User Updated!");
             }
         } catch (error) {
-            console.log(error);
+
             toast("Something Went Wrong");
         }
     };
@@ -97,74 +98,85 @@ const Profile = () => {
             toast.success("Listing Deleted Successfully");
         }
     };
+
+    const onEdit = (listingId) => {
+        navigate(`/editlisting/${listingId}`)
+    }
     return (
         <Layout>
-            <div className="container mt-4 w-50 d-flex justify-content-between">
-                <h4>Profile Details</h4>
-                <button className="btn btn-danger" onClick={logoutHandler}>
-                    Logout
-                </button>
-            </div>
-            <div className="container mt-4 card" style={{ width: "18rem" }}>
-                <div className="card-header">
-                    <div className="d-flex justify-content-between">
-                        <p>User Personal Details </p>
-                        <span
-                            style={{ cursor: "pointer" }}
-                            onClick={() => {
-                                changeDetails && onSubmit();
-                                setChangeDetails((prevState) => !prevState);
-                            }}
-                        >
-                            {changeDetails ? (
-                                <MdDoneOutline color="green" />
-                            ) : (
-                                <FaEdit color="red" />
-                            )}
-                        </span>
+            <div className="row profile-container">
+                <div className="col-md-6 profile-container-col1">
+                    <img src="./assets/profile.svg" alt="profile" />
+                </div>
+                <div className="col-md-6 profile-container-col2">
+                    <div className="container mt-4  d-flex justify-content-between">
+                        <h4>Profile Details</h4>
+                        <button className="btn btn-danger" onClick={logoutHandler}>
+                            Logout
+                        </button>
+                    </div>
+                    <div className="mt-4 card">
+                        <div className="card-header">
+                            <div className="d-flex justify-content-between">
+                                <p>Your Personal Details </p>
+                                <span
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() => {
+                                        changeDetails && onSubmit();
+                                        setChangeDetails((prevState) => !prevState);
+                                    }}
+                                >
+                                    {changeDetails ? (
+                                        <MdDoneOutline color="green" />
+                                    ) : (
+                                        <FaEdit color="red" />
+                                    )}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="card-body">
+                            <form>
+                                <div className="mb-3">
+                                    <label htmlFor="exampleInputPassword1" className="form-label">
+                                        Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="name"
+                                        value={name}
+                                        onChange={onChange}
+                                        disabled={!changeDetails}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="exampleInputEmail1" className="form-label">
+                                        Email address
+                                    </label>
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        className="form-control"
+                                        id="email"
+                                        aria-describedby="emailHelp"
+                                        onChange={onChange}
+                                        disabled={!changeDetails}
+                                    />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div className="mt-3 create-listing">
+                        <Link to="/create-listing">
+                            <FaArrowAltCircleRight color="primary" /> Sell or Rent Your Home
+                        </Link>
                     </div>
                 </div>
-                <div className="card-body">
-                    <form>
-                        <div className="mb-3">
-                            <label htmlFor="exampleInputPassword1" className="form-label">
-                                Name
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="name"
-                                value={name}
-                                onChange={onChange}
-                                disabled={!changeDetails}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="exampleInputEmail1" className="form-label">
-                                Email address
-                            </label>
-                            <input
-                                type="email"
-                                value={email}
-                                className="form-control"
-                                id="email"
-                                aria-describedby="emailHelp"
-                                onChange={onChange}
-                                disabled={!changeDetails}
-                            />
-                        </div>
-                    </form>
-                </div>
             </div>
-            <div className="container mt-4 w-50 d-flex justify-content-between">
-                <Link to="/create-listing">
-                    <FaArrowAltCircleRight color="primary" /> Sell or Rent Your Home
-                </Link>
-            </div>
-            <div className="container">
+            <div className="container-fluid mt-4 your-listings">
                 {listings && listings?.length > 0 && (
                     <>
-                        <h6>Your Listings</h6>
+                        <h3 className="mt-4">Your Listings</h3>
                         <div>
                             {listings.map((listing) => (
                                 <ListingItem
@@ -172,6 +184,7 @@ const Profile = () => {
                                     listing={listing.data}
                                     id={listing.id}
                                     onDelete={() => onDelete(listing.id)}
+                                    onEdit={() => onEdit(listing.id)}
                                 />
                             ))}
                         </div>

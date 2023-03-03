@@ -8,6 +8,7 @@ import { db } from '../firebase.config'
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore'
 import { toast } from 'react-toastify';
 import OAuth from '../components/OAuth'
+import '../styles/SignUp.css'
 
 const Signup = () => {
     const [showPassword, setShowPassword] = useState(false)
@@ -41,41 +42,48 @@ const Signup = () => {
             navigate('/')
 
         } catch (error) {
-            console.log(error);
+
             toast.error('Something went Wrong')
         }
     }
     return (
-        <Layout>
-            <div className='d-flex  align-items-center justify-content-center w-100 mt-4'>
-                <form className='bg-light p-4' onSubmit={onSubmitHandler}>
-                    <h4 className='bg-dark p-2 mt-2 text-light text-center'>Sign Up</h4>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">Name</label>
-                        <input type="text" value={name} onChange={onChange} className="form-control" id="name" aria-describedby="nameHelp" />
+        <Layout title="signup - house marketplace">
+            <div className="row signup-container">
+                <div className="col-md-6 signup-container-col-1">
+                    <img src="./assets/signup.svg" alt="welcome" />
+                </div>
+                <div className='col-md-6 signup-container-col-2'>
+                    <form onSubmit={onSubmitHandler}>
+                        <h3 className='mt-2 text-center'>Sign Up</h3>
+                        <div className="mb-3">
+                            <label htmlFor="exampleInputEmail1" className="form-label">Your Name</label>
+                            <input type="text" value={name} onChange={onChange} className="form-control" id="name" aria-describedby="nameHelp" />
 
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                        <input type="email" value={email} onChange={onChange} className="form-control" id="email" aria-describedby="emailHelp" />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
+                            <input type="email" value={email} onChange={onChange} className="form-control" id="email" aria-describedby="emailHelp" />
 
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                        <input type={showPassword ? 'text' : 'password'} value={password} onChange={onChange} className="form-control" id="password" />
-                        <span>
-                            Show Password <BsFillEyeFill className='ms-2 text-danger' style={{ cursor: 'pointer' }} onClick={() => { setShowPassword((prevState) => !prevState) }} />
-                        </span>
-                    </div>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                            <input type={showPassword ? 'text' : 'password'} value={password} onChange={onChange} className="form-control" id="password" />
+                            <span>
+                                Show Password <BsFillEyeFill className='ms-2 text-danger' style={{ cursor: 'pointer' }} onClick={() => { setShowPassword((prevState) => !prevState) }} />
+                            </span>
+                        </div>
 
-                    <button type="submit" className="btn btn-primary">Sign up</button>
-                    <div>
+                        <button type="submit" className="btn signup-button">Sign up</button>
 
-                        <OAuth />
-                        <span>Already User? </span><Link to='/signin'>Login</Link>
-                    </div>
-                </form>
+                        <span className='ms-4'>Already User? </span>{" "}
+                        <Link to='/signin'>Login</Link>
+                        <div className='mt-3'>
+                            <OAuth />
+                        </div>
 
+
+                    </form>
+                </div>
             </div>
         </Layout>
     )

@@ -9,6 +9,7 @@ import ListingItem from '../components/ListingItem'
 
 const Category = () => {
     const [listing, setListing] = useState(null)
+    const [lastFetchListing, setLastFetchListing] = useState(null)
     const [loading, setLoading] = useState(true)
     const params = useParams()
 
@@ -21,11 +22,14 @@ const Category = () => {
                 //reference
                 const listingsRef = collection(db, 'listings')
                 //query
-                const q = query(listingsRef, where('type', '==', params.categoryName), orderBy('timestamp', 'desc'), limit(10))
+                const q = query(listingsRef, where('type', '==', params.categoryName), orderBy('timestamp', 'desc'), limit(5))
 
                 //execute query
 
                 const querySnap = await getDocs(q)
+
+                const lastVisible = querySnap.docs[querySnap.docs.length - 1]
+                setLastFetchListing(lastVisible)
                 const listings = []
                 querySnap.forEach((doc) => {
                     return listings.push({
@@ -37,12 +41,42 @@ const Category = () => {
                 setLoading(false)
 
             } catch (error) {
-                console.log(error);
                 toast.error('Unable to fetch data')
             }
         }
         fetchListing()
     }, [params.categoryName])
+
+    //loadmore pagination fun
+
+    const fetchLoadMoreListing = async () => {
+        try {
+            //reference
+            const listingsRef = collection(db, 'listings')
+            //query
+            const q = query(listingsRef, where('type', '==', params.categoryName), orderBy('timestamp', 'desc'), startAfter(lastFetchListing), limit(10))
+
+            //execute query
+
+            const querySnap = await getDocs(q)
+
+            const lastVisible = querySnap.docs[querySnap.docs.length - 1]
+            setLastFetchListing(lastVisible)
+            const listings = []
+            querySnap.forEach((doc) => {
+                return listings.push({
+                    id: doc.id,
+                    data: doc.data()
+                })
+            })
+            setListing(prevState => [...prevState, ...listings])
+            setLoading(false)
+
+        } catch (error) {
+
+            toast.error('Unable to fetch data')
+        }
+    }
     return (
         <Layout>
             <div className='mt-3 container-fluid'>
@@ -60,6 +94,13 @@ const Category = () => {
                         </>
                     ) : (<p>No Listings For {params.categoryName}</p>)
                 }
+                <div className='d-flex justify-content-center align-item-center mb-4 mt-4'>
+                    {
+                        lastFetchListing && (
+                            <button className='btn btn-primary' onClick={fetchLoadMoreListing}>Load more</button>
+                        )
+                    }
+                </div>
             </div>
 
         </Layout>

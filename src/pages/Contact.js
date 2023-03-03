@@ -4,6 +4,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import '../styles/Contact.css'
 
 const Contact = () => {
     const params = useParams()
@@ -26,36 +27,41 @@ const Contact = () => {
         getLandlord()
     }, [params.landlordId])
     return (
-        <Layout>
-            <div className='container mt-4'>
-                <h3>Contact Details</h3>
-                <div>
+        <Layout title="contact details - house marketplace">
+            <div className="row contact-container">
+                <div className="col-md-6 contact-container-col-1">
+                    <img src="/assets/contact.svg" alt="contact" />
+                </div>
+                <div className='col-md-6 contact-container-col-2'>
+                    <h3>Contact Details</h3>
+                    <div>
 
 
-                    {
-                        landlord !== '' && (
-                            <main>
-                                <h3>Name:{landlord.name}</h3>
-                                <form action=''>
-                                    <div className="form-floating">
-                                        <textarea className="form-control" placeholder="Leave a comment here" value={message} id="message" style={{ height: 100 }} onChange={(e) => { setMessage(e.target.value) }} />
-                                        <label htmlFor="floatingTextarea2">Send your message</label>
+                        {
+                            landlord !== '' && (
+                                <main>
+                                    <h3 className='mb-4'>Person Name:{" "}{landlord.name}</h3>
+                                    <form action=''>
+                                        <div className="form-floating">
+                                            <textarea className="form-control" placeholder="Leave a comment here" value={message} id="message" style={{ height: 100 }} onChange={(e) => { setMessage(e.target.value) }} />
+                                            <label htmlFor="floatingTextarea2">Send your message</label>
 
-                                    </div>
-                                    <a
-                                        href={`mailto:${landlord.email}?Subject=${searchParams.get(
-                                            "listingName"
-                                        )}&body=${message}`}
-                                        className="btn btn-primary mt-2">
-                                        Send Message
+                                        </div>
+                                        <a
+                                            href={`mailto:${landlord.email}?Subject=${searchParams.get(
+                                                "listingName"
+                                            )}&body=${message}`}
+                                            className="btn btn-c mt-2">
+                                            Send Message
 
-                                    </a>
-                                </form>
+                                        </a>
+                                    </form>
 
 
-                            </main>
-                        )
-                    }
+                                </main>
+                            )
+                        }
+                    </div>
                 </div>
             </div>
         </Layout >
