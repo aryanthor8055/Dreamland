@@ -8,6 +8,9 @@ import { AiOutlineFileAdd } from "react-icons/ai";
 import { toast } from 'react-toastify'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { db } from '../firebase.config'
+import {
+    addDoc, collection, serverTimestamp
+} from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid'
 
 
@@ -124,8 +127,20 @@ const CreateListing = () => {
             toast.error('Image not uploaded')
         })
         console.log(imgUrls);
+
+        //Save Form Data
+
+        const formDataCopy = { ...formData, imgUrls, geoLocation, timestamp: serverTimestamp() }
+        formData.location = address
+        delete formDataCopy.images;
+        !formDataCopy.offer && delete formDataCopy.discountedPrice
+        const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
         setLoading(false)
+        toast.success('Listing Created')
+        navigate(`/category/${formDataCopy.type}/${docRef.id}`)
     };
+
+
     const onChangeHandler = (e) => {
         let boolean = null;
         if (e.target.value === "true") {
