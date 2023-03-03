@@ -47,7 +47,7 @@ const Signup = () => {
         }
     }
     return (
-        <Layout title="signup - house marketplace">
+        <Layout title="signup - Dreamland">
             <div className="row signup-container">
                 <div className="col-md-6 signup-container-col-1">
                     <img src="./assets/signup.svg" alt="welcome" />

@@ -27,7 +27,7 @@ const Contact = () => {
         getLandlord()
     }, [params.landlordId])
     return (
-        <Layout title="contact details - house marketplace">
+        <Layout title="contact details - Dreamland">
             <div className="row contact-container">
                 <div className="col-md-6 contact-container-col-1">
                     <img src="/assets/contact.svg" alt="contact" />

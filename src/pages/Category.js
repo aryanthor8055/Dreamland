@@ -78,7 +78,7 @@ const Category = () => {
         }
     }
     return (
-        <Layout>
+        <Layout title={params.categoryName === 'rent' ? 'Places for Rent' : 'Places for Sell'}>
             <div className='mt-3 container-fluid'>
                 <h1>{params.categoryName === 'rent' ? 'Places for Rent' : 'Places for Sell'}</h1>
                 {

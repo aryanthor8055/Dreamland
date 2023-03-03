@@ -103,7 +103,7 @@ const Profile = () => {
         navigate(`/editlisting/${listingId}`)
     }
     return (
-        <Layout>
+        <Layout title='Profile-Page'>
             <div className="row profile-container">
                 <div className="col-md-6 profile-container-col1">
                     <img src="./assets/profile.svg" alt="profile" />

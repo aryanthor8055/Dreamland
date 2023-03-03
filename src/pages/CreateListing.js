@@ -166,7 +166,7 @@ const CreateListing = () => {
     };
 
     return (
-        <Layout>
+        <Layout title='Rent or Sell your Home'>
             <div className="container d-flex flex-column align-items-center justify-content-center mb-4">
                 <h3 className="mt-3 w-50 bg-dark text-light p-2 text-center">
                     Create Listing &nbsp;
