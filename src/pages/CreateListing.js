@@ -19,7 +19,7 @@ const CreateListing = () => {
     const [loading, setLoading] = useState(false);
     const [geoLoactionEnable, setGeoLocationEnable] = useState(false);
     const [formData, setFormData] = useState({
-        type: "rent",
+        type: "",
         name: "",
         bedrooms: 1,
         bathrooms: 1,
@@ -216,12 +216,12 @@ const CreateListing = () => {
                                 className="form-check-input"
                                 type="radio"
                                 name="type"
-                                value="sale"
+                                value="sell"
                                 onChange={onChangeHandler}
                                 id="type"
                             />
-                            <label className="form-check-label" htmlFor="sale">
-                                Sale
+                            <label className="form-check-label" htmlFor="sell">
+                                Sell
                             </label>
                         </div>
                     </div>

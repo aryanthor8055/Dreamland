@@ -224,12 +224,12 @@ const EditListing = () => {
                                 className="form-check-input"
                                 type="radio"
                                 name="type"
-                                value="sale"
+                                value="sell"
                                 onChange={onChangeHandler}
                                 id="type"
                             />
-                            <label className="form-check-label" htmlFor="sale">
-                                Sale
+                            <label className="form-check-label" htmlFor="sell">
+                                Sell
                             </label>
                         </div>
                     </div>

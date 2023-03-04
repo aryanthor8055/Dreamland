@@ -97,7 +97,7 @@ const Listing = () => {
                         {listing.offer ? listing.discountedPrice : listing.regularPrice} /
                         RS
                     </h6>
-                    <p>Property For : {listing.type === "rent" ? "Rent" : "Sale"}</p>
+                    <p>Property For : {listing.type === "rent" ? "Rent" : "Sell"}</p>
                     <p>
                         {listing.offer && (
                             <span>
