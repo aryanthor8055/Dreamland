@@ -22,7 +22,7 @@ const Category = () => {
                 //reference
                 const listingsRef = collection(db, 'listings')
                 //query
-                const q = query(listingsRef, where('type', '==', params.categoryName), orderBy('timestamp', 'desc'), limit(5))
+                const q = query(listingsRef, where('type', '==', params.categoryName), orderBy('timestamp', 'desc'), limit(2))
 
                 //execute query
 

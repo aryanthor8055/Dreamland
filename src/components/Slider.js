@@ -77,7 +77,7 @@ const Slider = () => {
 
                                 <img
                                     src={data.imgUrls[0]}
-                                    height={400}
+                                    height={500}
                                     width='100%'
                                     alt={data.name}
 

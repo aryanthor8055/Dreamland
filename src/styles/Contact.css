@@ -55,6 +55,17 @@
     margin-top: 20px !important;
 }
 
+.signinbutton {
+    background-color: #470d21;
+    color: white;
+    width: 200px !important;
+}
+
+.signinbutton:hover {
+    background-color: #b12556;
+    color: white;
+}
+
 /* media query */
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
     .contact-container-col-1 img {
@@ -72,5 +83,9 @@
 
     .contact-container-col-2 textarea {
         font-size: 1rem !important;
+    }
+
+    .signinbutton {
+        width: 260px !important;
     }
 }
